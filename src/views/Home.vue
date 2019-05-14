@@ -8,11 +8,14 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
-
+import { ActionTypes } from "../store/ActionTypes";
 export default {
   name: "home",
   components: {
     HelloWorld
+  },
+  mounted: function() {
+    this.$store.dispatch(ActionTypes.GET_HOST_INFO, "truora.com");
   }
 };
 </script>
