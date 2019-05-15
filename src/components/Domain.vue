@@ -1,5 +1,5 @@
 <template>
-  <div v-if="domain">
+  <flex-row align-h="center" v-if="domain">
     <b-card
       border-variant="primary"
       header="Domain info"
@@ -12,7 +12,7 @@
     >
       <b-card-header>
         <p>
-          <img :src="domain.logo" :alt="domain.title" class="domain-logo" />
+          <img :src="domain.logo!=='' ? domain.logo: '@/assets/server-icon.png'" :alt="domain.title" class="domain-logo" />
           {{ domain.title }}
         </p>
       </b-card-header>
@@ -23,7 +23,7 @@
         <domain-status v-bind:domainStatus="!domain.isDown"></domain-status>
       </b-card-footer>
     </b-card>
-  </div>
+  </flex-row>
 </template>
 
 <script>
