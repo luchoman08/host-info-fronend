@@ -1,14 +1,14 @@
 <template>
-  <div class="home row">
+  <flex-row align-h="center" class="home row">
     <template v-if="domain">
-      <Domain v-bind:domain="domain" class="col-lg-5"></Domain>
-      <div class="col-lg-6">
+      <Domain v-bind:domain="domain" class="col-lg-6"></Domain>
+      <flex-row align-h="center" class="col-lg-6">
         <b-card-group deck>
           <template v-for="server in servers">
             <server v-bind:server="server" v-bind:key="server.address"></server>
           </template>
         </b-card-group>
-      </div>
+      </flex-row>
     </template>
     <flex-row
       v-else
@@ -20,7 +20,7 @@
     >
       <h4>Search a domain name at top of the page</h4>
     </flex-row>
-  </div>
+  </flex-row>
 </template>
 
 <script>
