@@ -35,9 +35,10 @@ export default new Vuex.Store({
           commit(MutationTypes.SET_DOMAIN, Domain.fromJson(response));
         })
         .catch(err => {
-          commit(MutationTypes.SET_DOMAIN, defaultState.domain);
-          commit(MutationTypes.SET_SERVERS, defaultState.servers);
-          return err;
+          commit(MutationTypes.SET_DOMAIN, null);
+          commit(MutationTypes.SET_SERVERS, []);
+          throw err
+
         });
     }
   }
