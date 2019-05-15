@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">Host Info &#x1F6C8;</b-navbar-brand>
+      <b-navbar-brand class="navbar-brand" href="#">Host Info &#x1F6C8;</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -23,4 +23,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .navbar-brand {
+    margin-left: 20px;
+  }
+</style>
