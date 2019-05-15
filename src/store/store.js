@@ -5,15 +5,20 @@ import { HostInfoService } from "../services/HostInfoService";
 import MutationTypes from "./MutationTypes";
 import Server from "../models/Server";
 import Domain from "../models/Domain";
+import { setWindowTitle } from "../common/util";
 Vue.use(Vuex);
-
-export default new Vuex.Store({
-  domain: {},
+const defaultState = {
+  domain: null, // object nullable
   servers: [],
+  loading: false
+};
+export default new Vuex.Store({
+  state: defaultState,
   getters: {},
   mutations: {
     [MutationTypes.SET_DOMAIN](state, domain) {
       state.domain = domain;
+      setWindowTitle(domain.title);
     },
     [MutationTypes.SET_SERVERS](state, servers) {
       state.servers = servers;
@@ -21,14 +26,19 @@ export default new Vuex.Store({
   },
   actions: {
     [ActionTypes.GET_HOST_INFO]({ commit }, hostName) {
-      HostInfoService.getHostInfo(hostName).then(response => {
-        console.log(response);
-        commit(
-          MutationTypes.SET_SERVERS,
-          response.servers.map(Server.fromJson)
-        );
-        commit(MutationTypes.SET_DOMAIN, Domain.fromJson(response));
-      });
+      return HostInfoService.getHostInfo(hostName)
+        .then(response => {
+          commit(
+            MutationTypes.SET_SERVERS,
+            response.servers.map(Server.fromJson)
+          );
+          commit(MutationTypes.SET_DOMAIN, Domain.fromJson(response));
+        })
+        .catch(err => {
+          commit(MutationTypes.SET_DOMAIN, defaultState.domain);
+          commit(MutationTypes.SET_SERVERS, defaultState.servers);
+          return err;
+        });
     }
   }
 });

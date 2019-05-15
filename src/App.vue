@@ -1,10 +1,11 @@
 <template>
   <div id="app">
+    <navbar></navbar>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view />
+    <router-view class="router-view" />
   </div>
 </template>
 
@@ -15,6 +16,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.router-view {
+  padding: 25px;
 }
 #nav {
   padding: 30px;
@@ -27,3 +31,9 @@
   }
 }
 </style>
+<script>
+import Navbar from "./components/layout/Navbar";
+export default {
+  components: { Navbar }
+};
+</script>

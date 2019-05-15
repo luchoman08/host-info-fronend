@@ -6,11 +6,6 @@ export default class Server {
     this.address = address;
   }
   static fromJson(json) {
-    return new Server(
-        json.ssl_grade,
-        json.country,
-        json.owner,
-        json.address
-    );
+    return new Server(json.ssl_grade, json.country, json.owner, json.address);
   }
 }
