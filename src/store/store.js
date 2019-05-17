@@ -10,6 +10,7 @@ Vue.use(Vuex);
 const defaultState = {
   domain: null, // object nullable
   servers: [],
+  latestSearchedDomains: [],
   loading: false
 };
 export default new Vuex.Store({
@@ -20,11 +21,22 @@ export default new Vuex.Store({
       state.domain = domain;
       setWindowTitle(domain.title);
     },
+    [MutationTypes.SET_LATEST_SEARCHED_DOMAINS](state, servers) {
+      state.latestSearchedDomains = servers;
+    },
     [MutationTypes.SET_SERVERS](state, servers) {
       state.servers = servers;
     }
   },
   actions: {
+    [ActionTypes.GET_LATEST_SEARCHED_DOMAINS]({ commit }) {
+      return HostInfoService.getLatestSearched().then(response => {
+        commit(
+          MutationTypes.SET_LATEST_SEARCHED_DOMAINS,
+            response.map(Domain.fromJson)
+        );
+      });
+    },
     [ActionTypes.GET_HOST_INFO]({ commit }, hostName) {
       return HostInfoService.getHostInfo(hostName)
         .then(response => {
@@ -37,8 +49,7 @@ export default new Vuex.Store({
         .catch(err => {
           commit(MutationTypes.SET_DOMAIN, null);
           commit(MutationTypes.SET_SERVERS, []);
-          throw err
-
+          throw err;
         });
     }
   }

@@ -8,9 +8,9 @@ export class ApiService {
     });
   }
 
-  static get(resource, slug = "") {
+  static get(resource) {
     return axios
-      .get(`${API_URL}/${resource}/${slug}`)
+      .get(`${API_URL}/${resource}`)
       .catch(error => {
         throw new Error(`[RWV] ApiService ${error}`);
       })
