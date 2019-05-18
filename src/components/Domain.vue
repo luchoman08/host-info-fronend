@@ -12,7 +12,11 @@
     >
       <b-card-header>
         <p>
-          <img :src="domain.logo!=='' ? domain.logo: '@/assets/server-icon.png'" :alt="domain.title" class="domain-logo" />
+          <img
+            :src="domain.logo !== '' ? domain.logo : '@/assets/server-icon.png'"
+            :alt="domain.title"
+            class="domain-logo"
+          />
           {{ domain.title }}
         </p>
       </b-card-header>

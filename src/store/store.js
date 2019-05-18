@@ -33,7 +33,7 @@ export default new Vuex.Store({
       return HostInfoService.getLatestSearched().then(response => {
         commit(
           MutationTypes.SET_LATEST_SEARCHED_DOMAINS,
-            response.map(Domain.fromJson)
+          response.map(Domain.fromJson)
         );
       });
     },
