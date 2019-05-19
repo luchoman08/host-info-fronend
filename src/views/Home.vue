@@ -1,12 +1,14 @@
 <template>
   <flex-row align-h="center" class="home row">
     <template v-if="domain">
+
       <Domain v-bind:domain="domain" class="col-lg-6"></Domain>
+
       <flex-row align-h="center" class="col-lg-6">
-        <b-card-group deck>
-          <template v-for="server in servers">
-            <server v-bind:server="server" v-bind:key="server.address"></server>
-          </template>
+        <b-card-group columns>
+            <template v-for="server in servers">
+              <server  v-bind:server="server" v-bind:key="server.address"></server>
+            </template>
         </b-card-group>
       </flex-row>
     </template>
