@@ -25,30 +25,35 @@ export default new Vuex.Store({
       state.latestSearchedDomains = servers;
     },
     [MutationTypes.SET_SERVERS](state, servers) {
+      console.log("todo bien en store get host info");
       state.servers = servers;
     }
   },
   actions: {
     [ActionTypes.GET_LATEST_SEARCHED_DOMAINS]({ commit }) {
-      return HostInfoService.getLatestSearched().then(response => {
+      return HostInfoService.getLatestSearched().then(({ data }) => {
         commit(
           MutationTypes.SET_LATEST_SEARCHED_DOMAINS,
-          response.map(Domain.fromJson)
+          data.map(Domain.fromJson)
         );
       });
     },
     [ActionTypes.GET_HOST_INFO]({ commit }, hostName) {
       return HostInfoService.getHostInfo(hostName)
-        .then(response => {
-          commit(
-            MutationTypes.SET_SERVERS,
-            response.servers.map(Server.fromJson)
-          );
-          commit(MutationTypes.SET_DOMAIN, Domain.fromJson(response));
+        .then(({ status, data }) => {
+          if (status === 200) {
+            commit(
+              MutationTypes.SET_SERVERS,
+              data.servers.map(Server.fromJson)
+            );
+            commit(MutationTypes.SET_DOMAIN, Domain.fromJson(data));
+          }
+          return status;
         })
         .catch(err => {
           commit(MutationTypes.SET_DOMAIN, null);
           commit(MutationTypes.SET_SERVERS, []);
+          console.log(err, "error at get host info");
           throw err;
         });
     }

@@ -14,7 +14,9 @@ export class ApiService {
       .catch(error => {
         throw new Error(`[RWV] ApiService ${error}`);
       })
-      .then(response => response.data);
+      .then(response => {
+        return response;
+      });
   }
 
   static post(resource, params) {
