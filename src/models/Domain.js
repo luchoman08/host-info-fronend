@@ -1,5 +1,6 @@
 export default class Domain {
   constructor(
+    hostName,
     serversChanged,
     sslGrade,
     previousSslGrade,
@@ -8,6 +9,7 @@ export default class Domain {
     isDown,
     servers
   ) {
+    this.hostName = hostName;
     this.serversChanged = serversChanged;
     this.sslGrade = sslGrade;
     this.previousSslGrade = previousSslGrade;
@@ -18,6 +20,7 @@ export default class Domain {
   }
   static fromJson(json) {
     return new Domain(
+      json.host_name,
       json.servers_changed,
       json.ssl_grade,
       json.previous_ssl_grade,
