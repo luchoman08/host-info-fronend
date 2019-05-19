@@ -9,6 +9,9 @@ import { setWindowTitle } from "../common/util";
 Vue.use(Vuex);
 const defaultState = {
   domain: null, // object nullable
+  pages: 1,
+  currentPage: 1,
+  pagesCount: 1,
   servers: [],
   latestSearchedDomains: [],
   loading: false
@@ -24,19 +27,27 @@ export default new Vuex.Store({
     [MutationTypes.SET_LATEST_SEARCHED_DOMAINS](state, servers) {
       state.latestSearchedDomains = servers;
     },
+    [MutationTypes.SET_PAGES_COUNT](state, pagesCount) {
+      state.pagesCount = pagesCount;
+    },
     [MutationTypes.SET_SERVERS](state, servers) {
-      console.log("todo bien en store get host info");
       state.servers = servers;
+    },
+    [MutationTypes.SET_CURRENT_PAGE](state, currentPage) {
+      state.currentPage = currentPage;
     }
   },
   actions: {
-    [ActionTypes.GET_LATEST_SEARCHED_DOMAINS]({ commit }) {
-      return HostInfoService.getLatestSearched().then(({ data }) => {
-        commit(
-          MutationTypes.SET_LATEST_SEARCHED_DOMAINS,
-          data.map(Domain.fromJson)
-        );
-      });
+    [ActionTypes.GET_LATEST_SEARCHED_DOMAINS]({ state, commit }) {
+      return HostInfoService.getLatestSearched(state.currentPage).then(
+        ({ data }) => {
+          commit(
+            MutationTypes.SET_LATEST_SEARCHED_DOMAINS,
+            data.domains.map(Domain.fromJson)
+          );
+          commit(MutationTypes.SET_PAGES_COUNT, data.pages);
+        }
+      );
     },
     [ActionTypes.GET_HOST_INFO]({ commit }, hostName) {
       return HostInfoService.getHostInfo(hostName)

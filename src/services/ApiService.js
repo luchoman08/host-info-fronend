@@ -8,15 +8,23 @@ export class ApiService {
     });
   }
 
+  static getPaged(resource, page) {
+    if (!page) {
+      page = 1;
+    }
+    return axios
+        .get(`${API_URL}/${resource}?page=${page}`)
+        .catch(error => {
+          throw new Error(`[RWV] ApiService ${error}`);
+        })
+  }
+
   static get(resource) {
     return axios
       .get(`${API_URL}/${resource}`)
       .catch(error => {
         throw new Error(`[RWV] ApiService ${error}`);
       })
-      .then(response => {
-        return response;
-      });
   }
 
   static post(resource, params) {
