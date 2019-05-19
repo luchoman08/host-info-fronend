@@ -15,7 +15,7 @@ export default new Router({
       component: Home
     },
     {
-      path: "/lastSearched",
+      path: "/lastSearched/:page",
       name: "lastSearched",
       component: LastSearchedDomains
     },
