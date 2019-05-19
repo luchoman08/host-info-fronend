@@ -49,12 +49,19 @@ export default {
       let loader = this.$loading.show();
       this.$store
         .dispatch(ActionTypes.GET_HOST_INFO, this.host)
-        .then(() => {
-          this.$router.push({ path: "/" });
+        .then(status => {
+            if(status === 206) {
+                this.$bvToast.toast(`The domain info is loading, try latter.`, {
+                    title: "Loading domain info...",
+                    variant: "success",
+                    autoHideDelay: 4000
+                });
+            } else {
+                this.$router.push({ path: "/" });
+            }
         })
         .catch(() => {
-          console.log("catch in find host");
-          this.$bvToast.toast(`The domain info can not be displayed.`, {
+          this.$bvToast.toast(`The domain info can not be found in the web.`, {
             title: "Domain not found",
             variant: "warning",
             autoHideDelay: 4000
