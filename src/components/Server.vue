@@ -5,7 +5,6 @@
     header-bg-variant="success"
     header-text-variant="white"
     tag="article"
-
   >
     <b-card-header>
       <span>{{ server.address }}</span>

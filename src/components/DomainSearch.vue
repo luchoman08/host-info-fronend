@@ -50,15 +50,15 @@ export default {
       this.$store
         .dispatch(ActionTypes.GET_HOST_INFO, this.host)
         .then(status => {
-            if(status === 206) {
-                this.$bvToast.toast(`The domain info is loading, try latter.`, {
-                    title: "Loading domain info...",
-                    variant: "success",
-                    autoHideDelay: 4000
-                });
-            } else {
-                this.$router.push({ path: "/" });
-            }
+          if (status === 206) {
+            this.$bvToast.toast(`The domain info is loading, try latter.`, {
+              title: "Loading domain info...",
+              variant: "success",
+              autoHideDelay: 4000
+            });
+          } else {
+            this.$router.push({ path: "/" });
+          }
         })
         .catch(() => {
           this.$bvToast.toast(`The domain info can not be found in the web.`, {

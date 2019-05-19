@@ -8,7 +8,6 @@
       img-top
       tag="article"
       style="max-width: 30rem;"
-
     >
       <b-card-header>
         <p>
