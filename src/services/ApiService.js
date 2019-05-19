@@ -12,19 +12,15 @@ export class ApiService {
     if (!page) {
       page = 1;
     }
-    return axios
-        .get(`${API_URL}/${resource}?page=${page}`)
-        .catch(error => {
-          throw new Error(`[RWV] ApiService ${error}`);
-        })
+    return axios.get(`${API_URL}/${resource}?page=${page}`).catch(error => {
+      throw new Error(`[RWV] ApiService ${error}`);
+    });
   }
 
   static get(resource) {
-    return axios
-      .get(`${API_URL}/${resource}`)
-      .catch(error => {
-        throw new Error(`[RWV] ApiService ${error}`);
-      })
+    return axios.get(`${API_URL}/${resource}`).catch(error => {
+      throw new Error(`[RWV] ApiService ${error}`);
+    });
   }
 
   static post(resource, params) {

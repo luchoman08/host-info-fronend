@@ -3,7 +3,9 @@
     <navbar></navbar>
     <div id="nav">
       <router-link to="/">Home</router-link>&nbsp;|
-      <router-link :to="{ name: 'lastSearched', params: { page: 1 }}">Last Searched</router-link>&nbsp;|
+      <router-link :to="{ name: 'lastSearched', params: { page: 1 } }"
+        >Last Searched</router-link
+      >&nbsp;|
       <router-link to="/about">About</router-link>
     </div>
     <router-view class="router-view" />
