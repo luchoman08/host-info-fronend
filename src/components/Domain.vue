@@ -8,7 +8,7 @@
       img-top
       tag="article"
       style="max-width: 30rem;"
-      class="mb-2"
+
     >
       <b-card-header>
         <p>
@@ -22,7 +22,10 @@
       </b-card-header>
       <div>SSL grade: {{ domain.sslGrade }}</div>
       <div>Servers changed: {{ domain.serversChanged ? "YES" : "NO" }}</div>
-
+      <div v-if="domain.serversChanged">
+        Previous SSL grade: {{ domain.previousSslGrade }}
+      </div>
+      <div>Host name: {{ domain.hostName }}</div>
       <b-card-footer>
         <domain-status v-bind:domainStatus="!domain.isDown"></domain-status>
       </b-card-footer>
@@ -43,7 +46,7 @@ let component = {
 export default component;
 </script>
 
-<style scoped>
+<style>
 .domain-logo {
   max-width: 30px;
   max-height: 30px;
